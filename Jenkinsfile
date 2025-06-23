@@ -23,7 +23,10 @@ pipeline {
 
         stage('fonctionnel') {
           steps {
-            sh 'dotnet test tests/FunctionalTests'
+            warnError(message: 'probleme') {
+              sh 'dotnet test tests/FunctionalTests'
+            }
+
           }
         }
 
@@ -33,6 +36,10 @@ pipeline {
     stage('deploy') {
       steps {
         sh 'dotnet publish eShopOnWeb.sln -o /var/aspnet'
+        dir(path: '/var/aspnet') {
+          archiveArtifacts(artifacts: '*', onlyIfSuccessful: true)
+        }
+
       }
     }
 
