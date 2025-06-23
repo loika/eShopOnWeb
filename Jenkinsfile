@@ -17,7 +17,7 @@ pipeline {
 
         stage('Integration') {
           steps {
-            sh 'dotnet test tests/IbtegrationTests'
+            sh 'dotnet test tests/IntegrationTests'
           }
         }
 
